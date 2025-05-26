@@ -9,21 +9,22 @@ import 'package:todo/controller/homecontroller.dart';
 
 class DetailPage extends StatelessWidget {
   DetailPage({Key? key}) : super(key: key);
-  final control=Get.find<Homecontroller>();
+  final control = Get.find<Homecontroller>();
   @override
   Widget build(BuildContext context) {
-    var task=control.task.value;
-    var color=HexColor.fromHex(task!.color);
+    var task = control.task.value;
+    var color = HexColor.fromHex(task!.color);
     return WillPopScope(
-      onWillPop: ()async{
+      onWillPop: () async {
         Get.back();
-                    control.updateTodos();
-                    control.changeTask(null);
-                    control.titlecontroller.clear();
-                    return true;
+        control.updateTodos();
+        control.changeTask(null);
+        control.titlecontroller.clear();
+        return true;
       },
       child: Scaffold(
-        body: SafeArea(child: Form(
+        body: SafeArea(
+            child: Form(
           key: control.formkey,
           child: ListView(
             children: [
@@ -31,11 +32,17 @@ class DetailPage extends StatelessWidget {
                 padding: EdgeInsets.all(3.0.wp),
                 child: Row(
                   children: [
-                    IconButton(onPressed: (){Get.back();
-                    control.updateTodos();
-                    control.changeTask(null);
-                    control.titlecontroller.clear();
-                    }, icon: const Icon(Icons.arrow_back,color: Colors.deepPurple,))
+                    IconButton(
+                        onPressed: () {
+                          Get.back();
+                          control.updateTodos();
+                          control.changeTask(null);
+                          control.titlecontroller.clear();
+                        },
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.deepPurple,
+                        ))
                   ],
                 ),
               ),
@@ -45,66 +52,97 @@ class DetailPage extends StatelessWidget {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(top: 2.0.wp),
-                      child: Icon(IconData(task.icon,fontFamily: 'MaterialIcons',),color: color,size: 35),
+                      child: Icon(
+                          IconData(
+                            task.icon,
+                            fontFamily: 'MaterialIcons',
+                          ),
+                          color: color,
+                          size: 35),
                     ),
-                    SizedBox(width: 3.0.wp,),
-                    Text(task.title,style: Theme.of(context).textTheme.headline4,)
+                    SizedBox(
+                      width: 3.0.wp,
+                    ),
+                    Text(
+                      task.title,
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    )
                   ],
                 ),
               ),
-              Obx((){
-                var totalTodos=control.doingTodos.length+control.doneTodos.length;
+              Obx(() {
+                var totalTodos =
+                    control.doingTodos.length + control.doneTodos.length;
                 return Padding(
-                  padding: EdgeInsets.only(left: 16.0.wp,top: 6.0.wp,bottom:  6.0.wp,right: 16.0.wp),
+                  padding: EdgeInsets.only(
+                      left: 16.0.wp,
+                      top: 6.0.wp,
+                      bottom: 6.0.wp,
+                      right: 16.0.wp),
                   child: Row(
                     children: [
-                      Text("$totalTodos Tasks",style: Theme.of(context).textTheme.headline2,),
-                      SizedBox(width: 3.0.wp,),
-                      Expanded(child: StepProgressIndicator(
-                        totalSteps: totalTodos==0?1:totalTodos,
+                      Text(
+                        "$totalTodos Tasks",
+                        style: Theme.of(context).textTheme.displayMedium,
+                      ),
+                      SizedBox(
+                        width: 3.0.wp,
+                      ),
+                      Expanded(
+                          child: StepProgressIndicator(
+                        totalSteps: totalTodos == 0 ? 1 : totalTodos,
                         currentStep: control.doneTodos.length,
                         size: 5,
                         roundedEdges: Radius.circular(10),
                         padding: 0,
-                        selectedGradientColor:LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [color.withOpacity(0.4),color]),
-                          unselectedGradientColor: LinearGradient(begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [Colors.grey[300]!,Colors.grey[300]!] ),
-                        ))
+                        selectedGradientColor: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [color.withOpacity(0.4), color]),
+                        unselectedGradientColor: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [Colors.grey[300]!, Colors.grey[300]!]),
+                      ))
                     ],
                   ),
                 );
               }),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 2.0.wp,horizontal:5.0.wp),
+                padding:
+                    EdgeInsets.symmetric(vertical: 2.0.wp, horizontal: 5.0.wp),
                 child: TextFormField(
-                        controller:control.titlecontroller,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                          labelText: 'Add To-Do',
-                          suffixIcon: IconButton(onPressed: (){
-                            if(control.formkey.currentState!.validate()){
-                              var success = control.addTodo(control.titlecontroller.text);
-                              if(success)
-                              EasyLoading.showSuccess('To-Do item add success');
+                  controller: control.titlecontroller,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      labelText: 'Add To-Do',
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            if (control.formkey.currentState!.validate()) {
+                              var success =
+                                  control.addTodo(control.titlecontroller.text);
+                              if (success)
+                                EasyLoading.showSuccess(
+                                    'To-Do item add success');
                               else
-                              EasyLoading.showError('To-Do item already exist');
-    
+                                EasyLoading.showError(
+                                    'To-Do item already exist');
+
                               control.titlecontroller.clear();
                             }
-                          }, icon: Icon(Icons.done,color: Colors.deepPurple,))
-    
-                        ),
-                        validator: (value){
-                          if(value==null||value.trim().isEmpty){
-                            return 'Please enter your todo item';
-                          }
-                          return null;
-                        },
-                      ),
+                          },
+                          icon: Icon(
+                            Icons.done,
+                            color: Colors.deepPurple,
+                          ))),
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Please enter your todo item';
+                    }
+                    return null;
+                  },
+                ),
               ),
               DoingList(),
               DoneList(),

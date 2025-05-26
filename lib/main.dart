@@ -25,46 +25,59 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       theme: ThemeData(
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        elevation: 10,
-      )),
-      colorScheme: ColorScheme.light().copyWith(primary: Colors.deepPurple),
-      primaryColor: Colors.deepPurple,
-      
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            elevation: 10,
+          )),
+          colorScheme: ColorScheme.light().copyWith(primary: Colors.deepPurple),
+          primaryColor: Colors.deepPurple,
 
-      // ignore: prefer_const_constructors
-      textTheme: TextTheme(
-        headline1: const TextStyle(
-            fontSize: 32, fontFamily: "Ubuntu-Medium.ttf", color: Colors.black),
-        headline2: const TextStyle(
-            fontSize: 17,
-            fontFamily: "Ubuntu-Regular.ttf",
-            color: Colors.black54),
-        headline3: const TextStyle(
-            fontSize: 24, fontFamily: "Ubuntu-Medium.ttf", color: Colors.white),
-            headline4: const TextStyle(
-            fontSize: 36, fontFamily: "Ubuntu-Medium.ttf", color: Colors.black,fontWeight: FontWeight.w500),
-            headline5: const TextStyle(
-            fontSize: 24, fontFamily: "Ubuntu-Medium.ttf", color: Colors.black,overflow: TextOverflow.ellipsis,fontWeight: FontWeight.w500),
-            button: const TextStyle(
-            fontSize: 25, fontFamily: "Ubuntu-Medium.ttf", color: Colors.deepPurple),
-            headline6: const TextStyle(
-            fontSize: 25, fontFamily: "Ubuntu-Medium.ttf", color: Colors.black,fontWeight: FontWeight.w400),
-      ).apply(fontFamily: "Ubuntu")
-      ),
+          // ignore: prefer_const_constructors
+          textTheme: TextTheme(
+            displayLarge: const TextStyle(
+                fontSize: 32,
+                fontFamily: "Ubuntu-Medium.ttf",
+                color: Colors.black),
+            displayMedium: const TextStyle(
+                fontSize: 17,
+                fontFamily: "Ubuntu-Regular.ttf",
+                color: Colors.black54),
+            displaySmall: const TextStyle(
+                fontSize: 24,
+                fontFamily: "Ubuntu-Medium.ttf",
+                color: Colors.white),
+            headlineMedium: const TextStyle(
+                fontSize: 36,
+                fontFamily: "Ubuntu-Medium.ttf",
+                color: Colors.black,
+                fontWeight: FontWeight.w500),
+            headlineSmall: const TextStyle(
+                fontSize: 24,
+                fontFamily: "Ubuntu-Medium.ttf",
+                color: Colors.black,
+                overflow: TextOverflow.ellipsis,
+                fontWeight: FontWeight.w500),
+            labelLarge: const TextStyle(
+                fontSize: 25,
+                fontFamily: "Ubuntu-Medium.ttf",
+                color: Colors.deepPurple),
+            titleLarge: const TextStyle(
+                fontSize: 25,
+                fontFamily: "Ubuntu-Medium.ttf",
+                color: Colors.black,
+                fontWeight: FontWeight.w400),
+          ).apply(fontFamily: "Ubuntu")),
       debugShowCheckedModeBanner: false,
       initialBinding: HomeBinding(),
       builder: EasyLoading.init(),
       getPages: [
-        GetPage(name: '/', page: ()=> Intro(),middlewares: [IntroMeddleWare()]),
-        GetPage(name: '/Demo', page: ()=>Demopagestate())
+        GetPage(
+            name: '/', page: () => Intro(), middlewares: [IntroMeddleWare()]),
+        GetPage(name: '/Demo', page: () => Demopagestate())
       ],
     );
   }
 }
-
-

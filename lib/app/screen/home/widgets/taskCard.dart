@@ -17,10 +17,11 @@ class TaskCard extends StatelessWidget {
     var squarewidth = Get.width - 20.0.wp;
     final color = HexColor.fromHex(task.color);
     return GestureDetector(
-      onTap:(){
+      onTap: () {
         Homecontrol.changeTask(task);
-        Homecontrol.changeTodos(task.todos??[]);
-        Get.to(()=>DetailPage());},
+        Homecontrol.changeTodos(task.todos ?? []);
+        Get.to(() => DetailPage());
+      },
       child: Container(
         width: squarewidth / 2,
         height: squarewidth / 2,
@@ -41,8 +42,11 @@ class TaskCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: StepProgressIndicator(
-                totalSteps: Homecontrol.isTodoEmpty(task)?1:task.todos!.length,
-                currentStep: Homecontrol.isTodoEmpty(task)?0:Homecontrol.getDoneTodo(task),
+                totalSteps:
+                    Homecontrol.isTodoEmpty(task) ? 1 : task.todos!.length,
+                currentStep: Homecontrol.isTodoEmpty(task)
+                    ? 0
+                    : Homecontrol.getDoneTodo(task),
                 roundedEdges: const Radius.circular(10),
                 size: 5,
                 padding: 0,
@@ -58,17 +62,27 @@ class TaskCard extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.all(3.0.wp),
-              child: Icon(IconData(task.icon,fontFamily: 'MaterialIcons'),color: color,),
+              child: Icon(
+                IconData(task.icon, fontFamily: 'MaterialIcons'),
+                color: color,
+              ),
             ),
             Padding(
               padding: EdgeInsets.all(3.0.wp),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(task.title,style: Theme.of(context).textTheme.headline5,),
-                  SizedBox(height: 1.0.wp,),
-                  Text('${task.todos?.length??0} Task',style: Theme.of(context).textTheme.headline2,)
-    
+                  Text(
+                    task.title,
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                  SizedBox(
+                    height: 1.0.wp,
+                  ),
+                  Text(
+                    '${task.todos?.length ?? 0} Task',
+                    style: Theme.of(context).textTheme.displayMedium,
+                  )
                 ],
               ),
             )
